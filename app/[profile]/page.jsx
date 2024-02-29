@@ -38,9 +38,9 @@ const page = () => {
                 }
             </div>
             {
-                (email===details.email && password===details.password) ? <div id="posts" className='w-full min-h-screen flex justify-around flex-col items-center'>
+                (email === details.email && password === details.password) ? <div id="posts" className='w-full min-h-screen flex justify-around flex-col items-center'>
                     {
-                        posts.length > 0 && posts.map((item, index) => (
+                        posts.length > 0 && posts.slice().reverse().map((item, index) => (
                             <Post2 key={index} username={item.username}
                                 posttext={item.post}
                                 time={item.createdAt}
@@ -50,7 +50,7 @@ const page = () => {
                     }
                 </div> : <div id="posts" className='w-full min-h-screen flex justify-around flex-col items-center'>
                     {
-                        posts.length > 0 && posts.map((item, index) => (
+                        posts.length > 0 && posts.slice().reverse().map((item, index) => (
                             <Post key={index} username={item.username}
                                 posttext={item.post}
                                 time={'10/10/24 10:10'}

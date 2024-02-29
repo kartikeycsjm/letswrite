@@ -8,6 +8,7 @@ import Footer from '@/app/components/Footer'
 import { useEffect } from 'react'
 const page = () => {
   const router = useRouter()
+  let [posted, setPosted] = useState('');
   const [loggedin, setLoggedin] = useState(false)
   const [details, setDetails] = useState({})
   const [posts, setPosts] = useState([])
@@ -34,14 +35,15 @@ const page = () => {
     } else {
       router.push('/login');
     }
-  }, []);
-  const dopost = async () => {
+  }, [posted]);
+
+  async function dopost() {
     const res = await axios.post('/api/main', {
       username: details.username,
       post: posttext
     })
     const msg = res.data;
-    console.log(msg);
+    setPosted(msg)
   }
   return (
     <div className='min-h-screen w-full flex justify-start items-center flex-col bg-black text-white'>
@@ -56,18 +58,16 @@ const page = () => {
           className='text-black p-3 text-[12px] rounded h-[50px] resize-none w-[80%]' name="" id="" cols="30" rows="10"></textarea>
         <button
           onClick={dopost}
-          className='rounded w-[15%] h-[30px] border border-blue-700 flex justify-center items-center'>Post</button>
+          className='rounded w-[15%] h-[30px] border border-blue-700 flex justify-center items-center'>{posted ? 'Posted' : 'Post'}</button>
       </div>
       <div id="posts" className='w-full min-h-screen flex justify-around flex-col items-center'>
         {posts.length > 0 &&
-          posts.map((item, index) => (
-            <Post key={index} username={item.username}
-              posttext={item.post}
-              time={item.createdAt}
-            />
+          posts.slice().reverse().map((item, index) => (
+            <Post key={index} username={item.username} posttext={item.post} time={item.createdAt} />
           ))
         }
       </div>
+
       <Footer />
     </div>
   )
