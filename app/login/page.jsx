@@ -39,11 +39,13 @@ const page = () => {
                 <div className='w-[300px] h-[200px] border bg-red-400 flex justify-around items-center
         flex-col'>
                     <input type='text'
+                    placeholder='email'
                         value={email}
                         onChange={(e => setemail(e.target.value))}
                         className='w-[250px] h-[45px] rounded p-4' />
                     <input
-                        type="text"
+                        type="password"
+                        placeholder='password'
                         value={password}
                         onChange={e => setpassword(e.target.value)}
                         className='w-[250px] h-[45px] rounded p-4' />
